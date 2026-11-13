@@ -7,6 +7,12 @@ from backend.app.models.asset import (
     AssetType,
 )
 from backend.app.models.user import User, UserRole
+from backend.app.models.vulnerability import (
+    AssetVulnerability,
+    RemediationStatus,
+    Vulnerability,
+    VulnerabilitySeverity,
+)
 
 __all__ = [
     "Base",
@@ -17,4 +23,8 @@ __all__ = [
     "AssetCriticality",
     "AssetStatus",
     "AssetEnvironment",
+    "Vulnerability",
+    "AssetVulnerability",
+    "VulnerabilitySeverity",
+    "RemediationStatus",
 ]

@@ -16,6 +16,19 @@ from backend.app.schemas.user import (
     UserResponse,
     UserUpdate,
 )
+from backend.app.schemas.vulnerability import (
+    AssetVulnerabilityCreate,
+    AssetVulnerabilityResponse,
+    AssetVulnerabilityUpdate,
+    FindingListResponse,
+    VulnerabilityBase,
+    VulnerabilityCreate,
+    VulnerabilityListResponse,
+    VulnerabilityResponse,
+    VulnerabilityScanResult,
+    VulnerabilityStatsResponse,
+    VulnerabilityUpdate,
+)
 
 __all__ = [
     "UserBase",
@@ -32,4 +45,15 @@ __all__ = [
     "AssetResponse",
     "AssetListResponse",
     "AssetStatsResponse",
+    "VulnerabilityBase",
+    "VulnerabilityCreate",
+    "VulnerabilityUpdate",
+    "VulnerabilityResponse",
+    "AssetVulnerabilityCreate",
+    "AssetVulnerabilityUpdate",
+    "AssetVulnerabilityResponse",
+    "VulnerabilityListResponse",
+    "FindingListResponse",
+    "VulnerabilityScanResult",
+    "VulnerabilityStatsResponse",
 ]

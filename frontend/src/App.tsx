@@ -12,9 +12,11 @@ import {
   Lock,
   RefreshCw,
   LayoutDashboard,
-  Box
+  Box,
+  AlertTriangle
 } from 'lucide-react'
 import { AssetInventory } from './components/AssetInventory'
+import { VulnerabilityManagement } from './components/VulnerabilityManagement'
 
 interface HealthState {
   status: string
@@ -25,7 +27,7 @@ interface HealthState {
 }
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'assets'>('assets')
+  const [activeTab, setActiveTab] = useState<'assets' | 'vulnerabilities' | 'overview'>('vulnerabilities')
   const [health, setHealth] = useState<HealthState | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -64,7 +66,7 @@ export function App() {
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-lg tracking-wider text-white">AEGISFLOW</span>
                   <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/60 font-semibold tracking-wide">
-                    Phase 3 Active
+                    Phase 4 Active
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 font-mono tracking-tight">Cybersecurity Defense &amp; Digital Forensics</p>
@@ -73,6 +75,17 @@ export function App() {
 
             {/* Navigation Tabs */}
             <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-slate-800">
+              <button
+                onClick={() => setActiveTab('vulnerabilities')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
+                  activeTab === 'vulnerabilities'
+                    ? 'bg-cyan-950/70 text-cyan-400 border border-cyan-700/60 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                }`}
+              >
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                Vulnerabilities (Phase 4)
+              </button>
               <button
                 onClick={() => setActiveTab('assets')}
                 className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
@@ -114,7 +127,22 @@ export function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
-        {activeTab === 'assets' ? (
+        {activeTab === 'vulnerabilities' ? (
+          <div>
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
+              <div>
+                <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
+                  <AlertTriangle className="w-6 h-6 text-amber-400" />
+                  Vulnerability Management &amp; CVE Intelligence
+                </h1>
+                <p className="text-xs text-slate-400 font-mono mt-1">
+                  Correlate assets against the CVE repository, trigger vulnerability scans, and track remediation lifecycles.
+                </p>
+              </div>
+            </div>
+            <VulnerabilityManagement />
+          </div>
+        ) : activeTab === 'assets' ? (
           <div>
             <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
               <div>
@@ -138,13 +166,13 @@ export function App() {
               <div className="relative z-10 max-w-3xl space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-700/50 text-cyan-300 text-xs font-mono">
                   <Activity className="w-3.5 h-3.5 animate-pulse text-cyan-400" />
-                  Phase 3: Asset Inventory &amp; Attack Surface Operational
+                  Phase 4: Vulnerability Management &amp; Scanning Operational
                 </div>
                 <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
                   Autonomous Threat Intelligence &amp; Digital Forensics Platform
                 </h1>
                 <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-                  AegisFlow integrates attack surface discovery, asset inventory mapping, hybrid rule-based &amp; machine learning threat detection engines, and chain-of-custody digital evidence preservation.
+                  AegisFlow integrates attack surface discovery, CVE vulnerability correlation, hybrid rule-based &amp; machine learning threat detection engines, and chain-of-custody digital evidence preservation.
                 </p>
               </div>
             </div>
@@ -227,7 +255,7 @@ export function App() {
                   </div>
                   <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
                     <span>Migrations</span>
-                    <span className="text-cyan-400">0001, 0002 Ready</span>
+                    <span className="text-cyan-400">0001, 0002, 0003</span>
                   </div>
                 </div>
 
@@ -270,13 +298,13 @@ export function App() {
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       <span>01. Auth &amp; User Management (Phase 2 Done)</span>
                     </li>
-                    <li className="flex items-center gap-2 text-cyan-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
+                    <li className="flex items-center gap-2 text-emerald-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       <span>02. Asset Inventory &amp; Host Mapping (Phase 3 Done)</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                      <span>03. Vulnerability Management (Phase 4 Next)</span>
+                    <li className="flex items-center gap-2 text-cyan-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>03. Vulnerability Management (Phase 4 Done)</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-400">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
@@ -294,7 +322,7 @@ export function App() {
                   <ul className="text-xs text-slate-300 space-y-2 font-mono">
                     <li className="flex items-center gap-2 text-slate-400">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                      <span>04. Network Security Monitoring (Scapy)</span>
+                      <span>04. Network Security Monitoring (Phase 5 Next)</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-400">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
