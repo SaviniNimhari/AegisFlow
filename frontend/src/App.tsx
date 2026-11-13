@@ -14,11 +14,13 @@ import {
   LayoutDashboard,
   Box,
   AlertTriangle,
-  Radio
+  Radio,
+  Brain
 } from 'lucide-react'
 import { AssetInventory } from './components/AssetInventory'
 import { VulnerabilityManagement } from './components/VulnerabilityManagement'
 import { SecurityMonitoring } from './components/SecurityMonitoring'
+import { AIRiskIntelligence } from './components/AIRiskIntelligence'
 
 interface HealthState {
   status: string
@@ -29,7 +31,7 @@ interface HealthState {
 }
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'monitoring' | 'vulnerabilities' | 'assets' | 'overview'>('monitoring')
+  const [activeTab, setActiveTab] = useState<'ai-risk' | 'monitoring' | 'vulnerabilities' | 'assets' | 'overview'>('ai-risk')
   const [health, setHealth] = useState<HealthState | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -67,8 +69,8 @@ export function App() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-lg tracking-wider text-white">AEGISFLOW</span>
-                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/60 font-semibold tracking-wide">
-                    Phase 5 Active: Rule Engine &amp; SIEM
+                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-700/60 font-semibold tracking-wide">
+                    Phase 6 Active: AI Threat Intelligence &amp; SHAP
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 font-mono tracking-tight">Cybersecurity Defense &amp; Digital Forensics</p>
@@ -77,6 +79,17 @@ export function App() {
 
             {/* Navigation Tabs */}
             <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-slate-800">
+              <button
+                onClick={() => setActiveTab('ai-risk')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
+                  activeTab === 'ai-risk'
+                    ? 'bg-purple-950/70 text-purple-300 border border-purple-700/60 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                }`}
+              >
+                <Brain className="w-3.5 h-3.5 text-purple-400" />
+                AI Risk Intelligence (Phase 6)
+              </button>
               <button
                 onClick={() => setActiveTab('monitoring')}
                 className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
@@ -140,7 +153,22 @@ export function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
-        {activeTab === 'monitoring' ? (
+        {activeTab === 'ai-risk' ? (
+          <div>
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
+              <div>
+                <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
+                  <Brain className="w-6 h-6 text-purple-400" />
+                  AI Threat Intelligence &amp; SHAP Explainability Engine
+                </h1>
+                <p className="text-xs text-slate-400 font-mono mt-1">
+                  Gradient-boosted behavioral threat scoring, anomaly detection, active learning feedback, and transparent SHAP feature attributions.
+                </p>
+              </div>
+            </div>
+            <AIRiskIntelligence />
+          </div>
+        ) : activeTab === 'monitoring' ? (
           <div>
             <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
               <div>
@@ -374,9 +402,9 @@ export function App() {
                     <span>AI &amp; Incident Management</span>
                   </div>
                   <ul className="text-xs text-slate-300 space-y-2 font-mono">
-                    <li className="flex items-center gap-2 text-slate-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                      <span>08. AI Risk Intelligence (XGBoost + SHAP)</span>
+                    <li className="flex items-center gap-2 text-emerald-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>08. AI Risk Intelligence (XGBoost + SHAP) (Phase 6 Done)</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-400">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />

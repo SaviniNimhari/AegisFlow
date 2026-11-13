@@ -1,4 +1,10 @@
 from backend.app.database.base import Base
+from backend.app.models.ai_risk import (
+    AIRiskLevel,
+    AIThreatCategory,
+    AIThreatPrediction,
+    AnalystFeedback,
+)
 from backend.app.models.asset import (
     Asset,
     AssetCriticality,
@@ -41,4 +47,8 @@ __all__ = [
     "EventType",
     "AlertSeverity",
     "AlertStatus",
+    "AIThreatPrediction",
+    "AIRiskLevel",
+    "AIThreatCategory",
+    "AnalystFeedback",
 ]

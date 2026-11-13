@@ -1,3 +1,12 @@
+from backend.app.schemas.ai_risk import (
+    AIEventAnalysisRequest,
+    AIModelMetadata,
+    AIRiskSummary,
+    AIThreatPredictionResponse,
+    AnalystFeedbackUpdate,
+    BatchAIAnalysisRequest,
+    FeatureAttribution,
+)
 from backend.app.schemas.asset import (
     AssetBase,
     AssetCreate,
@@ -84,4 +93,11 @@ __all__ = [
     "AlertListResponse",
     "EventIngestResponse",
     "AlertStatsResponse",
+    "FeatureAttribution",
+    "AIEventAnalysisRequest",
+    "BatchAIAnalysisRequest",
+    "AnalystFeedbackUpdate",
+    "AIThreatPredictionResponse",
+    "AIModelMetadata",
+    "AIRiskSummary",
 ]
