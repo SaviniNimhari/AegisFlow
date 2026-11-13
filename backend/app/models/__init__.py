@@ -6,6 +6,14 @@ from backend.app.models.asset import (
     AssetStatus,
     AssetType,
 )
+from backend.app.models.monitoring import (
+    AlertSeverity,
+    AlertStatus,
+    DetectionRule,
+    EventType,
+    SecurityAlert,
+    SecurityEvent,
+)
 from backend.app.models.user import User, UserRole
 from backend.app.models.vulnerability import (
     AssetVulnerability,
@@ -27,4 +35,10 @@ __all__ = [
     "AssetVulnerability",
     "VulnerabilitySeverity",
     "RemediationStatus",
+    "SecurityEvent",
+    "DetectionRule",
+    "SecurityAlert",
+    "EventType",
+    "AlertSeverity",
+    "AlertStatus",
 ]

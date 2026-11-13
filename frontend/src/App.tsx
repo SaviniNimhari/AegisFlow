@@ -13,10 +13,12 @@ import {
   RefreshCw,
   LayoutDashboard,
   Box,
-  AlertTriangle
+  AlertTriangle,
+  Radio
 } from 'lucide-react'
 import { AssetInventory } from './components/AssetInventory'
 import { VulnerabilityManagement } from './components/VulnerabilityManagement'
+import { SecurityMonitoring } from './components/SecurityMonitoring'
 
 interface HealthState {
   status: string
@@ -27,7 +29,7 @@ interface HealthState {
 }
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'assets' | 'vulnerabilities' | 'overview'>('vulnerabilities')
+  const [activeTab, setActiveTab] = useState<'monitoring' | 'vulnerabilities' | 'assets' | 'overview'>('monitoring')
   const [health, setHealth] = useState<HealthState | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -66,7 +68,7 @@ export function App() {
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-lg tracking-wider text-white">AEGISFLOW</span>
                   <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/60 font-semibold tracking-wide">
-                    Phase 4 Active
+                    Phase 5 Active: Rule Engine &amp; SIEM
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 font-mono tracking-tight">Cybersecurity Defense &amp; Digital Forensics</p>
@@ -75,6 +77,17 @@ export function App() {
 
             {/* Navigation Tabs */}
             <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-slate-800">
+              <button
+                onClick={() => setActiveTab('monitoring')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
+                  activeTab === 'monitoring'
+                    ? 'bg-cyan-950/70 text-cyan-400 border border-cyan-700/60 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                }`}
+              >
+                <Radio className="w-3.5 h-3.5 text-red-400" />
+                Threat Monitoring (Phase 5)
+              </button>
               <button
                 onClick={() => setActiveTab('vulnerabilities')}
                 className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
@@ -127,7 +140,22 @@ export function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
-        {activeTab === 'vulnerabilities' ? (
+        {activeTab === 'monitoring' ? (
+          <div>
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
+              <div>
+                <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
+                  <Radio className="w-6 h-6 text-red-400" />
+                  Security Monitoring &amp; Rule-Based Detection Engine
+                </h1>
+                <p className="text-xs text-slate-400 font-mono mt-1">
+                  Real-time telemetry ingestion, MITRE ATT&amp;CK rule correlation, brute-force &amp; IOC detection, and SOC analyst triage.
+                </p>
+              </div>
+            </div>
+            <SecurityMonitoring />
+          </div>
+        ) : activeTab === 'vulnerabilities' ? (
           <div>
             <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
               <div>
@@ -320,13 +348,13 @@ export function App() {
                     <span>Detection &amp; Forensics</span>
                   </div>
                   <ul className="text-xs text-slate-300 space-y-2 font-mono">
-                    <li className="flex items-center gap-2 text-slate-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                      <span>04. Network Security Monitoring (Phase 5 Next)</span>
+                    <li className="flex items-center gap-2 text-emerald-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>04. Network Security Monitoring (Phase 5 Done)</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                      <span>05. Log Ingestion &amp; Rule-Based Detection</span>
+                    <li className="flex items-center gap-2 text-emerald-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>05. Log Ingestion &amp; Rule Detection (Phase 5 Done)</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-400">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
