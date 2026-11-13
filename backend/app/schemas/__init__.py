@@ -1,3 +1,12 @@
+from backend.app.schemas.asset import (
+    AssetBase,
+    AssetCreate,
+    AssetListResponse,
+    AssetResponse,
+    AssetStatsResponse,
+    AssetUpdate,
+    PortInfo,
+)
 from backend.app.schemas.user import (
     TokenPayload,
     TokenResponse,
@@ -16,4 +25,11 @@ __all__ = [
     "UserLogin",
     "TokenResponse",
     "TokenPayload",
+    "PortInfo",
+    "AssetBase",
+    "AssetCreate",
+    "AssetUpdate",
+    "AssetResponse",
+    "AssetListResponse",
+    "AssetStatsResponse",
 ]

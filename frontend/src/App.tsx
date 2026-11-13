@@ -1,26 +1,31 @@
 import { useState, useEffect } from 'react'
-import { 
-  ShieldAlert, 
-  ShieldCheck, 
-  Cpu, 
-  Terminal, 
-  Server, 
-  Activity, 
-  CheckCircle2, 
-  Layers, 
-  Code2, 
-  Lock, 
-  RefreshCw 
+import {
+  ShieldAlert,
+  ShieldCheck,
+  Cpu,
+  Terminal,
+  Server,
+  Activity,
+  CheckCircle2,
+  Layers,
+  Code2,
+  Lock,
+  RefreshCw,
+  LayoutDashboard,
+  Box
 } from 'lucide-react'
+import { AssetInventory } from './components/AssetInventory'
 
 interface HealthState {
   status: string
   service: string
   version: string
+  database?: string
   checkedAt?: string
 }
 
 export function App() {
+  const [activeTab, setActiveTab] = useState<'overview' | 'assets'>('assets')
   const [health, setHealth] = useState<HealthState | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -50,22 +55,50 @@ export function App() {
       {/* Top Navbar */}
       <header className="border-b border-slate-800/80 bg-[#0b1329]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-              <ShieldCheck className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-lg tracking-wider text-white">AEGISFLOW</span>
-                <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/60 font-semibold tracking-wide">
-                  v1.0.0-dev
-                </span>
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <ShieldCheck className="w-6 h-6 text-white" />
               </div>
-              <p className="text-xs text-slate-400 font-mono tracking-tight">Cybersecurity Defense & Digital Forensics</p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-lg tracking-wider text-white">AEGISFLOW</span>
+                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800/60 font-semibold tracking-wide">
+                    Phase 3 Active
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 font-mono tracking-tight">Cybersecurity Defense &amp; Digital Forensics</p>
+              </div>
             </div>
+
+            {/* Navigation Tabs */}
+            <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-slate-800">
+              <button
+                onClick={() => setActiveTab('assets')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
+                  activeTab === 'assets'
+                    ? 'bg-cyan-950/70 text-cyan-400 border border-cyan-700/60 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                }`}
+              >
+                <Box className="w-3.5 h-3.5" />
+                Asset Inventory (Phase 3)
+              </button>
+              <button
+                onClick={() => setActiveTab('overview')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
+                  activeTab === 'overview'
+                    ? 'bg-cyan-950/70 text-cyan-400 border border-cyan-700/60 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                }`}
+              >
+                <LayoutDashboard className="w-3.5 h-3.5" />
+                SOC Architecture Overview
+              </button>
+            </nav>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <a
               href="http://localhost:8000/docs"
               target="_blank"
@@ -79,232 +112,252 @@ export function App() {
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Container */}
       <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
-        {/* Hero Section */}
-        <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-b from-[#0d1833] to-[#091024] p-8 shadow-2xl">
-          <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10 max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-700/50 text-cyan-300 text-xs font-mono">
-              <Activity className="w-3.5 h-3.5 animate-pulse text-cyan-400" />
-              Phase 1: Foundation Architecture Initialized
-            </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-              Autonomous Threat Intelligence & Digital Forensics Platform
-            </h1>
-            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
-              AegisFlow integrates proactive attack surface monitoring, hybrid rule & machine-learning detection engines, static evidence preservation, and structured incident triage into a unified defensive SOC command center.
-            </p>
-          </div>
-        </div>
-
-        {/* Live System Connectivity Grid */}
-        <section className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <Server className="w-4 h-4 text-cyan-400" />
-              System Stack Connectivity
-            </h2>
-            <button 
-              onClick={checkHealth} 
-              disabled={loading}
-              className="text-xs flex items-center gap-1.5 px-2.5 py-1 rounded border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition cursor-pointer"
-            >
-              <RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin text-cyan-400' : ''}`} />
-              Re-probe API
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* FastAPI Backend */}
-            <div className="rounded-xl border border-slate-800/80 bg-[#0d152b] p-5 shadow-lg flex flex-col justify-between">
+        {activeTab === 'assets' ? (
+          <div>
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-mono uppercase text-slate-400">Backend API</span>
-                  {health?.status === 'healthy' ? (
-                    <span className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                      ONLINE
-                    </span>
-                  ) : (
-                    <span className="text-[11px] text-amber-400 bg-amber-950/50 px-2 py-0.5 rounded border border-amber-800">
-                      STANDBY
-                    </span>
-                  )}
-                </div>
-                <h3 className="font-semibold text-slate-200 text-base">Python 3.12 + FastAPI</h3>
-                <p className="text-xs text-slate-400 mt-1 font-mono">
-                  {health ? `v${health.version} - ${health.status}` : error ? error : 'Port 8000 awaiting ping'}
+                <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
+                  <Box className="w-6 h-6 text-cyan-400" />
+                  Authorized Digital Asset Inventory
+                </h1>
+                <p className="text-xs text-slate-400 font-mono mt-1">
+                  Discover, manage, and catalog authorized network hosts, operating systems, and exposed listening ports.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
-                <span>Endpoint</span>
-                <span className="text-cyan-400">localhost:8000</span>
-              </div>
             </div>
-
-            {/* React Frontend */}
-            <div className="rounded-xl border border-slate-800/80 bg-[#0d152b] p-5 shadow-lg flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-mono uppercase text-slate-400">User Interface</span>
-                  <span className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                    ONLINE
-                  </span>
-                </div>
-                <h3 className="font-semibold text-slate-200 text-base">React + TypeScript</h3>
-                <p className="text-xs text-slate-400 mt-1 font-mono">Vite + Tailwind CSS v4</p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
-                <span>Dev Server</span>
-                <span className="text-cyan-400">localhost:5173</span>
-              </div>
-            </div>
-
-            {/* Database Engine */}
-            <div className="rounded-xl border border-slate-800/80 bg-[#0d152b] p-5 shadow-lg flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-mono uppercase text-slate-400">Database</span>
-                  <span className="text-[11px] text-blue-400 bg-blue-950/50 px-2 py-0.5 rounded border border-blue-800">
-                    CONFIGURED
-                  </span>
-                </div>
-                <h3 className="font-semibold text-slate-200 text-base">PostgreSQL 17 / 18</h3>
-                <p className="text-xs text-slate-400 mt-1 font-mono">SQLAlchemy 2 + Alembic</p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
-                <span>Driver</span>
-                <span className="text-cyan-400">psycopg3 (binary)</span>
-              </div>
-            </div>
-
-            {/* Cache & Queue */}
-            <div className="rounded-xl border border-slate-800/80 bg-[#0d152b] p-5 shadow-lg flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-mono uppercase text-slate-400">Tasks & Cache</span>
-                  <span className="text-[11px] text-purple-400 bg-purple-950/50 px-2 py-0.5 rounded border border-purple-800">
-                    CONFIGURED
-                  </span>
-                </div>
-                <h3 className="font-semibold text-slate-200 text-base">Redis + Celery</h3>
-                <p className="text-xs text-slate-400 mt-1 font-mono">Async Forensic Workers</p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
-                <span>Port</span>
-                <span className="text-cyan-400">6379</span>
-              </div>
-            </div>
+            <AssetInventory />
           </div>
-        </section>
-
-        {/* Modular Architecture Roadmap */}
-        <section className="space-y-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-            <Layers className="w-4 h-4 text-cyan-400" />
-            AegisFlow Security & Intelligence Modules
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Core Defensive Modules */}
-            <div className="rounded-xl border border-slate-800 bg-[#0b1329] p-5 space-y-3">
-              <div className="flex items-center gap-2 text-cyan-400 font-semibold text-sm">
-                <Lock className="w-4 h-4" />
-                <span>Foundation & Security</span>
+        ) : (
+          /* SOC Overview Tab */
+          <div className="space-y-8">
+            {/* Hero Section */}
+            <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-b from-[#0d1833] to-[#091024] p-8 shadow-2xl">
+              <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="relative z-10 max-w-3xl space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-700/50 text-cyan-300 text-xs font-mono">
+                  <Activity className="w-3.5 h-3.5 animate-pulse text-cyan-400" />
+                  Phase 3: Asset Inventory &amp; Attack Surface Operational
+                </div>
+                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
+                  Autonomous Threat Intelligence &amp; Digital Forensics Platform
+                </h1>
+                <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                  AegisFlow integrates attack surface discovery, asset inventory mapping, hybrid rule-based &amp; machine learning threat detection engines, and chain-of-custody digital evidence preservation.
+                </p>
               </div>
-              <ul className="text-xs text-slate-300 space-y-2 font-mono">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>01. Auth & User Management (JWT + Argon2)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>02. Asset Inventory & Host Mapping</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>03. Vulnerability Management (CVE / CVSS)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>11. Audit Logging & Administration</span>
-                </li>
-              </ul>
             </div>
 
-            {/* Monitoring & Forensics */}
-            <div className="rounded-xl border border-slate-800 bg-[#0b1329] p-5 space-y-3">
-              <div className="flex items-center gap-2 text-blue-400 font-semibold text-sm">
-                <Cpu className="w-4 h-4" />
-                <span>Detection & Forensics</span>
+            {/* Live System Connectivity Grid */}
+            <section className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                  <Server className="w-4 h-4 text-cyan-400" />
+                  System Stack Connectivity
+                </h2>
+                <button
+                  onClick={checkHealth}
+                  disabled={loading}
+                  className="text-xs flex items-center gap-1.5 px-2.5 py-1 rounded border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition cursor-pointer"
+                >
+                  <RefreshCw className={`w-3 h-3 ${loading ? 'animate-spin text-cyan-400' : ''}`} />
+                  Re-probe API
+                </button>
               </div>
-              <ul className="text-xs text-slate-300 space-y-2 font-mono">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>04. Network Security Monitoring (Scapy)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>05. Log Ingestion & Rule-Based Detection</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>06. Digital Forensics & YARA Malware Engine</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>07. Threat Intelligence Feeds & Hashes</span>
-                </li>
-              </ul>
-            </div>
 
-            {/* AI Intelligence & Incident Response */}
-            <div className="rounded-xl border border-slate-800 bg-[#0b1329] p-5 space-y-3">
-              <div className="flex items-center gap-2 text-purple-400 font-semibold text-sm">
-                <ShieldAlert className="w-4 h-4" />
-                <span>AI & Incident Management</span>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {/* FastAPI Backend */}
+                <div className="rounded-xl border border-slate-800/80 bg-[#0d152b] p-5 shadow-lg flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-mono uppercase text-slate-400">Backend API</span>
+                      {health?.status === 'healthy' || health?.status === 'degraded' ? (
+                        <span className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                          ONLINE
+                        </span>
+                      ) : (
+                        <span className="text-[11px] text-amber-400 bg-amber-950/50 px-2 py-0.5 rounded border border-amber-800">
+                          STANDBY
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="font-semibold text-slate-200 text-base">Python 3.12 + FastAPI</h3>
+                    <p className="text-xs text-slate-400 mt-1 font-mono">
+                      {health ? `v${health.version} - ${health.status}` : error ? error : 'Port 8000 awaiting ping'}
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
+                    <span>Endpoint</span>
+                    <span className="text-cyan-400">localhost:8000</span>
+                  </div>
+                </div>
+
+                {/* React Frontend */}
+                <div className="rounded-xl border border-slate-800/80 bg-[#0d152b] p-5 shadow-lg flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-mono uppercase text-slate-400">User Interface</span>
+                      <span className="flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                        ONLINE
+                      </span>
+                    </div>
+                    <h3 className="font-semibold text-slate-200 text-base">React + TypeScript</h3>
+                    <p className="text-xs text-slate-400 mt-1 font-mono">Vite + Tailwind CSS v4</p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
+                    <span>Dev Server</span>
+                    <span className="text-cyan-400">localhost:5173</span>
+                  </div>
+                </div>
+
+                {/* Database Engine */}
+                <div className="rounded-xl border border-slate-800/80 bg-[#0d152b] p-5 shadow-lg flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-mono uppercase text-slate-400">Database</span>
+                      <span className="text-[11px] text-blue-400 bg-blue-950/50 px-2 py-0.5 rounded border border-blue-800">
+                        CONFIGURED
+                      </span>
+                    </div>
+                    <h3 className="font-semibold text-slate-200 text-base">PostgreSQL 17 / 18</h3>
+                    <p className="text-xs text-slate-400 mt-1 font-mono">SQLAlchemy 2 + Alembic</p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
+                    <span>Migrations</span>
+                    <span className="text-cyan-400">0001, 0002 Ready</span>
+                  </div>
+                </div>
+
+                {/* Cache & Queue */}
+                <div className="rounded-xl border border-slate-800/80 bg-[#0d152b] p-5 shadow-lg flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-mono uppercase text-slate-400">Tasks &amp; Cache</span>
+                      <span className="text-[11px] text-purple-400 bg-purple-950/50 px-2 py-0.5 rounded border border-purple-800">
+                        CONFIGURED
+                      </span>
+                    </div>
+                    <h3 className="font-semibold text-slate-200 text-base">Redis + Celery</h3>
+                    <p className="text-xs text-slate-400 mt-1 font-mono">Async Forensic Workers</p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-400 font-mono">
+                    <span>Port</span>
+                    <span className="text-cyan-400">6379</span>
+                  </div>
+                </div>
               </div>
-              <ul className="text-xs text-slate-300 space-y-2 font-mono">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>08. AI Risk Intelligence (XGBoost + SHAP)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>09. Incident Correlation & Case Timelines</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>10. Executive & Technical Security Reports</span>
-                </li>
-              </ul>
-            </div>
+            </section>
+
+            {/* Modular Architecture Roadmap */}
+            <section className="space-y-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                <Layers className="w-4 h-4 text-cyan-400" />
+                AegisFlow Security &amp; Intelligence Modules
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Core Defensive Modules */}
+                <div className="rounded-xl border border-slate-800 bg-[#0b1329] p-5 space-y-3">
+                  <div className="flex items-center gap-2 text-cyan-400 font-semibold text-sm">
+                    <Lock className="w-4 h-4" />
+                    <span>Foundation &amp; Security</span>
+                  </div>
+                  <ul className="text-xs text-slate-300 space-y-2 font-mono">
+                    <li className="flex items-center gap-2 text-emerald-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>01. Auth &amp; User Management (Phase 2 Done)</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-cyan-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>02. Asset Inventory &amp; Host Mapping (Phase 3 Done)</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>03. Vulnerability Management (Phase 4 Next)</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>11. Audit Logging &amp; Administration</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Monitoring & Forensics */}
+                <div className="rounded-xl border border-slate-800 bg-[#0b1329] p-5 space-y-3">
+                  <div className="flex items-center gap-2 text-blue-400 font-semibold text-sm">
+                    <Cpu className="w-4 h-4" />
+                    <span>Detection &amp; Forensics</span>
+                  </div>
+                  <ul className="text-xs text-slate-300 space-y-2 font-mono">
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>04. Network Security Monitoring (Scapy)</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>05. Log Ingestion &amp; Rule-Based Detection</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>06. Digital Forensics &amp; YARA Malware Engine</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>07. Threat Intelligence Feeds &amp; Hashes</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* AI Intelligence & Incident Response */}
+                <div className="rounded-xl border border-slate-800 bg-[#0b1329] p-5 space-y-3">
+                  <div className="flex items-center gap-2 text-purple-400 font-semibold text-sm">
+                    <ShieldAlert className="w-4 h-4" />
+                    <span>AI &amp; Incident Management</span>
+                  </div>
+                  <ul className="text-xs text-slate-300 space-y-2 font-mono">
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>08. AI Risk Intelligence (XGBoost + SHAP)</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>09. Incident Correlation &amp; Case Timelines</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-slate-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
+                      <span>10. Executive &amp; Technical Security Reports</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Quick Developer Command Reference */}
+            <section className="rounded-xl border border-slate-800/80 bg-[#0b1329] p-6 space-y-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                <Code2 className="w-4 h-4 text-cyan-400" />
+                Developer Command Reference
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                <div className="bg-[#050811] p-4 rounded-lg border border-slate-800 space-y-2">
+                  <span className="text-slate-400 font-bold block">Python Backend Startup:</span>
+                  <p className="text-cyan-300">.\.venv\Scripts\Activate.ps1</p>
+                  <p className="text-cyan-300">python -m uvicorn backend.app.main:app --reload</p>
+                  <p className="text-slate-500">API: http://127.0.0.1:8000 | Docs: /docs</p>
+                </div>
+                <div className="bg-[#050811] p-4 rounded-lg border border-slate-800 space-y-2">
+                  <span className="text-slate-400 font-bold block">Frontend Dev Server:</span>
+                  <p className="text-emerald-300">cd frontend</p>
+                  <p className="text-emerald-300">npm run dev</p>
+                  <p className="text-slate-500">Dashboard: http://localhost:5173</p>
+                </div>
+              </div>
+            </section>
           </div>
-        </section>
-
-        {/* Quick Instructions & Next Steps */}
-        <section className="rounded-xl border border-slate-800/80 bg-[#0b1329] p-6 space-y-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-cyan-400" />
-            Developer Command Reference
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-            <div className="bg-[#050811] p-4 rounded-lg border border-slate-800 space-y-2">
-              <span className="text-slate-400 font-bold block">Python Backend Startup:</span>
-              <p className="text-cyan-300">.\.venv\Scripts\Activate.ps1</p>
-              <p className="text-cyan-300">python -m uvicorn backend.app.main:app --reload</p>
-              <p className="text-slate-500">API: http://127.0.0.1:8000 | Docs: /docs</p>
-            </div>
-            <div className="bg-[#050811] p-4 rounded-lg border border-slate-800 space-y-2">
-              <span className="text-slate-400 font-bold block">Frontend Dev Server:</span>
-              <p className="text-emerald-300">cd frontend</p>
-              <p className="text-emerald-300">npm run dev</p>
-              <p className="text-slate-500">Dashboard: http://localhost:5173</p>
-            </div>
-          </div>
-        </section>
+        )}
       </main>
 
       {/* Footer */}
