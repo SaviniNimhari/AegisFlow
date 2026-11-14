@@ -51,6 +51,12 @@ class SecurityEvent(Base, UUIDPrimaryKeyMixin, TimestampMixin):
         nullable=True,
         index=True
     )
+    incident_id: Mapped[str | None] = mapped_column(
+        String(36),
+        ForeignKey("incidents.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True
+    )
 
     raw_log: Mapped[str | None] = mapped_column(Text, nullable=True)
     details: Mapped[dict[str, Any] | None] = mapped_column(JSON, default=dict, nullable=True)
@@ -119,6 +125,12 @@ class SecurityAlert(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     asset_id: Mapped[str | None] = mapped_column(
         String(36),
         ForeignKey("assets.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True
+    )
+    incident_id: Mapped[str | None] = mapped_column(
+        String(36),
+        ForeignKey("incidents.id", ondelete="SET NULL"),
         nullable=True,
         index=True
     )

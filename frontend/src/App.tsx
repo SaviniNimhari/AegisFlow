@@ -23,6 +23,7 @@ import { VulnerabilityManagement } from './components/VulnerabilityManagement'
 import { SecurityMonitoring } from './components/SecurityMonitoring'
 import { AIRiskIntelligence } from './components/AIRiskIntelligence'
 import { DigitalForensics } from './components/DigitalForensics'
+import { IncidentManagement } from './components/IncidentManagement'
 
 interface HealthState {
   status: string
@@ -33,7 +34,7 @@ interface HealthState {
 }
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'forensics' | 'ai-risk' | 'monitoring' | 'vulnerabilities' | 'assets' | 'overview'>('forensics')
+  const [activeTab, setActiveTab] = useState<'incidents' | 'forensics' | 'ai-risk' | 'monitoring' | 'vulnerabilities' | 'assets' | 'overview'>('incidents')
   const [health, setHealth] = useState<HealthState | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -71,8 +72,8 @@ export function App() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-lg tracking-wider text-white">AEGISFLOW</span>
-                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/60 font-semibold tracking-wide">
-                    Phase 7 Active: Digital Forensics &amp; YARA
+                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-700/60 font-semibold tracking-wide">
+                    Phase 8 Active: Incident Correlation &amp; Case Response
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 font-mono tracking-tight">Cybersecurity Defense &amp; Digital Forensics</p>
@@ -81,6 +82,17 @@ export function App() {
 
             {/* Navigation Tabs */}
             <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-slate-800">
+              <button
+                onClick={() => setActiveTab('incidents')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
+                  activeTab === 'incidents'
+                    ? 'bg-rose-950/70 text-rose-300 border border-rose-700/60 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                }`}
+              >
+                <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
+                Incidents &amp; Triage (Phase 8)
+              </button>
               <button
                 onClick={() => setActiveTab('forensics')}
                 className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
@@ -166,7 +178,22 @@ export function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
-        {activeTab === 'forensics' ? (
+        {activeTab === 'incidents' ? (
+          <div>
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
+              <div>
+                <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
+                  <ShieldAlert className="w-6 h-6 text-rose-400" />
+                  Incident Response, Case Investigation &amp; Alert Correlation
+                </h1>
+                <p className="text-xs text-slate-400 font-mono mt-1">
+                  Automated security alert clustering, blast radius containment, multi-analyst case dossiers, artifact linkage, and immutable timeline tracking.
+                </p>
+              </div>
+            </div>
+            <IncidentManagement />
+          </div>
+        ) : activeTab === 'forensics' ? (
           <div>
             <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
               <div>
@@ -434,13 +461,13 @@ export function App() {
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       <span>08. AI Risk Intelligence (XGBoost + SHAP) (Phase 6 Done)</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                      <span>09. Incident Correlation &amp; Case Timelines</span>
+                    <li className="flex items-center gap-2 text-emerald-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>09. Incident Correlation &amp; Case Timelines (Phase 8 Done)</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-400">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                      <span>10. Executive &amp; Technical Security Reports</span>
+                      <span>10. Executive &amp; Technical Security Reports (Phase 9)</span>
                     </li>
                   </ul>
                 </div>

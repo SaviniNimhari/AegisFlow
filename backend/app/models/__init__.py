@@ -19,6 +19,14 @@ from backend.app.models.forensics import (
     ForensicVerdict,
     YaraRule,
 )
+from backend.app.models.incident import (
+    Incident,
+    IncidentCategory,
+    IncidentComment,
+    IncidentSeverity,
+    IncidentStatus,
+    IncidentTimeline,
+)
 from backend.app.models.monitoring import (
     AlertSeverity,
     AlertStatus,
@@ -63,4 +71,10 @@ __all__ = [
     "YaraRule",
     "ForensicVerdict",
     "CustodyAction",
+    "Incident",
+    "IncidentSeverity",
+    "IncidentStatus",
+    "IncidentCategory",
+    "IncidentTimeline",
+    "IncidentComment",
 ]

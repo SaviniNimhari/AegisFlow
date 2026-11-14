@@ -26,6 +26,19 @@ from backend.app.schemas.forensics import (
     YaraRuleCreate,
     YaraRuleResponse,
 )
+from backend.app.schemas.incident import (
+    CorrelationTriggerResponse,
+    IncidentCommentCreate,
+    IncidentCommentResponse,
+    IncidentCreate,
+    IncidentListResponse,
+    IncidentResponse,
+    IncidentStatsResponse,
+    IncidentTimelineResponse,
+    IncidentUpdate,
+    LinkAlertRequest,
+    LinkArtifactRequest,
+)
 from backend.app.schemas.monitoring import (
     AlertListResponse,
     AlertStatsResponse,
@@ -118,4 +131,15 @@ __all__ = [
     "YaraRuleCreate",
     "YaraRuleResponse",
     "ForensicStatsResponse",
+    "IncidentCreate",
+    "IncidentUpdate",
+    "IncidentResponse",
+    "IncidentListResponse",
+    "IncidentTimelineResponse",
+    "IncidentCommentCreate",
+    "IncidentCommentResponse",
+    "CorrelationTriggerResponse",
+    "LinkAlertRequest",
+    "LinkArtifactRequest",
+    "IncidentStatsResponse",
 ]

@@ -52,6 +52,9 @@ class ForensicArtifact(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     asset_id: Mapped[str | None] = mapped_column(
         String(36), ForeignKey("assets.id", ondelete="SET NULL"), nullable=True, index=True
     )
+    incident_id: Mapped[str | None] = mapped_column(
+        String(36), ForeignKey("incidents.id", ondelete="SET NULL"), nullable=True, index=True
+    )
     uploaded_by: Mapped[str] = mapped_column(String(128), nullable=False)
 
     # Relationships
