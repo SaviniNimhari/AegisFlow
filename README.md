@@ -145,11 +145,11 @@ docker compose up -d db redis
 ## 5. Development Roadmap
 
 - [x] **Phase 1 – Foundation**: Repository initialization, directory trees, FastAPI scaffold, React+TS frontend, Docker Compose configuration.
-- [ ] **Phase 2 – Database & Authentication**: SQLAlchemy models, Alembic migrations, Argon2 password hashing, JWT authentication, and RBAC (Admin, Analyst, Viewer).
-- [ ] **Phase 3 – Asset Management**: Host discovery, IP tracking, OS fingerprinting, and asset inventory dashboard.
-- [ ] **Phase 4 – Vulnerability Management**: CVE database integration, version matching, and CVSS scoring.
-- [ ] **Phase 5 – Security Monitoring**: Network packet parsing (Scapy), log ingestion, and rule-based alert triggering.
-- [ ] **Phase 6 – AI Intelligence**: Model training, anomaly detection (XGBoost), and explainable risk scores (SHAP).
-- [ ] **Phase 7 – Digital Forensics**: SHA-256 evidence hashing, PE/ELF metadata analysis, and YARA rule scanning.
-- [ ] **Phase 8 – Incident Investigation**: Alert correlation into incidents, timeline builder, and evidence chain-of-custody.
-- [ ] **Phase 9 – Professional Release**: Executive PDF reports, end-to-end testing, and production Docker deployment.
+- [x] **Phase 2 – Database & Authentication**: SQLAlchemy models, Alembic migrations, Argon2 password hashing, JWT authentication, and RBAC (Admin, Analyst, Viewer).
+- [x] **Phase 3 – Asset Management**: Host discovery, IP tracking, OS fingerprinting, and asset inventory dashboard.
+- [x] **Phase 4 – Vulnerability Management**: CVE database integration, version matching, and CVSS scoring.
+- [x] **Phase 5 – Security Monitoring**: Network packet parsing (Scapy), log ingestion, and rule-based alert triggering.
+- [x] **Phase 6 – AI Intelligence**: Model training, anomaly detection (XGBoost), and explainable risk scores (SHAP).
+- [x] **Phase 7 – Digital Forensics**: SHA-256 evidence hashing, PE/ELF metadata analysis, and YARA rule scanning.
+- [x] **Phase 8 – Incident Investigation**: Alert correlation into incidents, timeline builder, and evidence chain-of-custody.
+- [x] **Phase 9 – Professional Release**: Executive PDF reports, end-to-end testing, and production Docker deployment.

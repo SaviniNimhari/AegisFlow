@@ -54,6 +54,12 @@ from backend.app.schemas.monitoring import (
     SecurityEventCreate,
     SecurityEventResponse,
 )
+from backend.app.schemas.report import (
+    ExecutiveReportRequest,
+    IncidentPostmortemRequest,
+    SecurityPostureOverview,
+    SecurityReportResponse,
+)
 from backend.app.schemas.user import (
     TokenPayload,
     TokenResponse,
@@ -142,4 +148,8 @@ __all__ = [
     "LinkAlertRequest",
     "LinkArtifactRequest",
     "IncidentStatsResponse",
+    "ExecutiveReportRequest",
+    "IncidentPostmortemRequest",
+    "SecurityReportResponse",
+    "SecurityPostureOverview",
 ]

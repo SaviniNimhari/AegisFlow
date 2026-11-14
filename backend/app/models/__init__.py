@@ -35,6 +35,7 @@ from backend.app.models.monitoring import (
     SecurityAlert,
     SecurityEvent,
 )
+from backend.app.models.report import ReportFormat, ReportType, SecurityReport
 from backend.app.models.user import User, UserRole
 from backend.app.models.vulnerability import (
     AssetVulnerability,
@@ -77,4 +78,7 @@ __all__ = [
     "IncidentCategory",
     "IncidentTimeline",
     "IncidentComment",
+    "SecurityReport",
+    "ReportType",
+    "ReportFormat",
 ]

@@ -7,6 +7,7 @@ from backend.app.api.v1.endpoints import (
     forensics,
     incidents,
     monitoring,
+    reports,
     vulnerabilities,
 )
 
@@ -18,3 +19,4 @@ api_router.include_router(monitoring.router)
 api_router.include_router(ai_risk.router, prefix="/ai-risk", tags=["AI Risk Intelligence"])
 api_router.include_router(forensics.router)
 api_router.include_router(incidents.router)
+api_router.include_router(reports.router)
