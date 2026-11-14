@@ -12,6 +12,13 @@ from backend.app.models.asset import (
     AssetStatus,
     AssetType,
 )
+from backend.app.models.forensics import (
+    ChainOfCustodyLog,
+    CustodyAction,
+    ForensicArtifact,
+    ForensicVerdict,
+    YaraRule,
+)
 from backend.app.models.monitoring import (
     AlertSeverity,
     AlertStatus,
@@ -51,4 +58,9 @@ __all__ = [
     "AIRiskLevel",
     "AIThreatCategory",
     "AnalystFeedback",
+    "ForensicArtifact",
+    "ChainOfCustodyLog",
+    "YaraRule",
+    "ForensicVerdict",
+    "CustodyAction",
 ]

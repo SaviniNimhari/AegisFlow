@@ -16,6 +16,16 @@ from backend.app.schemas.asset import (
     AssetUpdate,
     PortInfo,
 )
+from backend.app.schemas.forensics import (
+    ArtifactListResponse,
+    ArtifactTextAnalyzeRequest,
+    ChainOfCustodyLogResponse,
+    CustodyVerificationRequest,
+    ForensicArtifactResponse,
+    ForensicStatsResponse,
+    YaraRuleCreate,
+    YaraRuleResponse,
+)
 from backend.app.schemas.monitoring import (
     AlertListResponse,
     AlertStatsResponse,
@@ -100,4 +110,12 @@ __all__ = [
     "AIThreatPredictionResponse",
     "AIModelMetadata",
     "AIRiskSummary",
+    "ForensicArtifactResponse",
+    "ArtifactListResponse",
+    "ArtifactTextAnalyzeRequest",
+    "ChainOfCustodyLogResponse",
+    "CustodyVerificationRequest",
+    "YaraRuleCreate",
+    "YaraRuleResponse",
+    "ForensicStatsResponse",
 ]

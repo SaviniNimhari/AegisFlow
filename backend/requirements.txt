@@ -22,3 +22,4 @@ scipy>=1.14.0
 joblib>=1.4.0
 xgboost>=2.1.0
 shap>=0.46.0
+yara-python>=4.5.0

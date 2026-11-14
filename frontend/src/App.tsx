@@ -15,12 +15,14 @@ import {
   Box,
   AlertTriangle,
   Radio,
-  Brain
+  Brain,
+  FileSearch
 } from 'lucide-react'
 import { AssetInventory } from './components/AssetInventory'
 import { VulnerabilityManagement } from './components/VulnerabilityManagement'
 import { SecurityMonitoring } from './components/SecurityMonitoring'
 import { AIRiskIntelligence } from './components/AIRiskIntelligence'
+import { DigitalForensics } from './components/DigitalForensics'
 
 interface HealthState {
   status: string
@@ -31,7 +33,7 @@ interface HealthState {
 }
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<'ai-risk' | 'monitoring' | 'vulnerabilities' | 'assets' | 'overview'>('ai-risk')
+  const [activeTab, setActiveTab] = useState<'forensics' | 'ai-risk' | 'monitoring' | 'vulnerabilities' | 'assets' | 'overview'>('forensics')
   const [health, setHealth] = useState<HealthState | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -69,8 +71,8 @@ export function App() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-lg tracking-wider text-white">AEGISFLOW</span>
-                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-700/60 font-semibold tracking-wide">
-                    Phase 6 Active: AI Threat Intelligence &amp; SHAP
+                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/60 font-semibold tracking-wide">
+                    Phase 7 Active: Digital Forensics &amp; YARA
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 font-mono tracking-tight">Cybersecurity Defense &amp; Digital Forensics</p>
@@ -80,6 +82,17 @@ export function App() {
             {/* Navigation Tabs */}
             <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-slate-800">
               <button
+                onClick={() => setActiveTab('forensics')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
+                  activeTab === 'forensics'
+                    ? 'bg-cyan-950/70 text-cyan-300 border border-cyan-700/60 font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                }`}
+              >
+                <FileSearch className="w-3.5 h-3.5 text-cyan-400" />
+                Forensics &amp; YARA (Phase 7)
+              </button>
+              <button
                 onClick={() => setActiveTab('ai-risk')}
                 className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
                   activeTab === 'ai-risk'
@@ -88,7 +101,7 @@ export function App() {
                 }`}
               >
                 <Brain className="w-3.5 h-3.5 text-purple-400" />
-                AI Risk Intelligence (Phase 6)
+                AI Risk (Phase 6)
               </button>
               <button
                 onClick={() => setActiveTab('monitoring')}
@@ -153,7 +166,22 @@ export function App() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
-        {activeTab === 'ai-risk' ? (
+        {activeTab === 'forensics' ? (
+          <div>
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
+              <div>
+                <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
+                  <FileSearch className="w-6 h-6 text-cyan-400" />
+                  Digital Forensics, Static Binary Analysis &amp; YARA Engine
+                </h1>
+                <p className="text-xs text-slate-400 font-mono mt-1">
+                  Cryptographic hashing (SHA-256, MD5, SHA-1), Shannon entropy measurement, IOC extraction, YARA matching, and verifiable Chain of Custody tracking.
+                </p>
+              </div>
+            </div>
+            <DigitalForensics />
+          </div>
+        ) : activeTab === 'ai-risk' ? (
           <div>
             <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
               <div>
@@ -384,9 +412,9 @@ export function App() {
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       <span>05. Log Ingestion &amp; Rule Detection (Phase 5 Done)</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-400">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                      <span>06. Digital Forensics &amp; YARA Malware Engine</span>
+                    <li className="flex items-center gap-2 text-emerald-400">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>06. Digital Forensics &amp; YARA Engine (Phase 7 Done)</span>
                     </li>
                     <li className="flex items-center gap-2 text-slate-400">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
